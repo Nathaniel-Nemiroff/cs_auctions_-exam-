@@ -1,0 +1,29 @@
+@model proj.PostAuction
+
+<a href="/">Home</a>
+<a href="/logout">Logout</a>
+
+<h3>New Auction</h3>
+
+<form asp-controller="proj" asp-action="PostAuction" method=post>
+
+	<span asp-validation-for="Name"></span>
+	<label asp-for="Name"></label>
+		<input asp-for="Name"><br>
+
+	<span asp-validation-for="Description"></span>
+	<label asp-for="Description"></label>
+		<input asp-for="Description"><br>
+
+	<span asp-validation-for="Bid"></span>
+	<label asp-for="Bid"></label>
+		<input asp-for="Bid"><br>
+
+	@ViewBag.EndsErr
+	<span asp-validation-for="EndsAt"></span>
+	<label asp-for="EndsAt"></label>
+		<input asp-for="EndsAt"><br>
+
+	<button type="submit">Create Auction</button>
+
+</form>

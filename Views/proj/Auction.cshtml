@@ -1,0 +1,84 @@
+<a href="/">Home</a>
+<a href="/logout">Logout</a>
+
+<h3>@ViewBag.Auction.Name</h3>
+<p>
+	<span>Created by: @ViewBag.Auction.Seller.First</span>
+	<span>Time Remaining: 
+					@{
+						uint time = (uint)(ViewBag.Auction.EndsAt - DateTime.Now).TotalMilliseconds;
+						if(ViewBag.Auction.EndsAt < DateTime.Now)
+						{
+							if(ViewBag.Auction.BuyerId == ViewBag.User.id)
+							{
+								if(ViewBag.Auction.BuyerId == ViewBag.Auction.SellerId)
+								{
+									<a href="/renew/@ViewBag.Auction.id">Extend by one day</a>
+								}
+								else
+								{
+									<span>Claim at the bottom of the page!</span>
+								}
+							}
+							else
+							{
+								<span>No longer available!</span>
+							}
+						}
+						else if(time/86400000 > 1)
+						{
+							<span>@((ViewBag.Auction.EndsAt-DateTime.Now).ToString("dd")) days left</span>
+						}
+						else if(time/3600000 > 1)
+						{
+							<span>@((time/3600000).ToString()) hours left</span>
+						}
+						else if(time/60000 > 1)
+						{
+							<span>@((time/60000).ToString()) minute(s) left</span>
+						}
+
+				}
+</span>
+</p>
+
+<p>@ViewBag.Auction.Description</p>
+
+<p>
+	<span> Current Highest Bid: By 
+		@{
+			if(ViewBag.Auction.BuyerId == ViewBag.Auction.SellerId)
+			{
+				<span>nobody</span>
+			}
+			else
+			{
+				<span>@ViewBag.Auction.Buyer.Username</span>
+			}
+		}
+	</span>
+	<p>@ViewBag.Auction.Bid</p>
+</p>
+
+@{
+	if(ViewBag.Auction.EndsAt < DateTime.Now)
+	{
+		if(ViewBag.Auction.BuyerId==ViewBag.User.id)	
+		{
+			<a href="/claim/@ViewBag.Auction.id">Claim this item now!</a>
+		}
+		else
+		{
+			<p>This item is no longer available!</P>
+			<p>Click <a href="/">here</a> to go back to the home page</p>
+		}
+	}
+	else if(ViewBag.Auction.SellerId != ViewBag.User.id)
+	{
+		@ViewBag.BidErr
+		<form action="/newbid/@ViewBag.Auction.id" method=post>
+			<input type=number name="bid" placeholder = "Your bid goes here...">
+			<input type=submit value="Bid!">
+		</form>
+	}
+}

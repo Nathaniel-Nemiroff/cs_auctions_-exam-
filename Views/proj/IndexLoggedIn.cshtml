@@ -1,0 +1,82 @@
+<p>Hi @ViewBag.User.First! <a href="/logout">Logout</a>
+
+<h3>Current Auctions</h3>
+
+<p>@ViewBag.ClaimErr</p>
+<table>
+
+	<th>Product</th>
+	<th>Seller</th>
+	<th>Top Bid</th>
+	<th>Time Remaining</th>
+	<th></th>
+
+	@{
+		foreach(var i in ViewBag.Auctions)
+		{
+			<tr>
+
+				<td><a href="/auction/@i.id">@i.Name</a></td>
+				<td>@i.Seller.First</td>
+				<td>@i.Bid</td>
+				<td>
+					@{
+						uint time = (uint)(i.EndsAt - DateTime.Now).TotalMilliseconds;
+						if(i.EndsAt < DateTime.Now)
+						{
+							if(i.BuyerId == ViewBag.User.id)
+							{
+								if(i.BuyerId == i.SellerId)
+								{
+									<a href="renew/@i.id">Extend by one day</a>
+								}
+								else
+								{
+									<a href="claim/@i.id">Claim this Item!</a>
+								}
+							}
+							else
+							{
+								<span>No longer available!</span>
+							}
+						}
+						else if(time/86400000 > 1)
+						{
+							<span>@((i.EndsAt-DateTime.Now).ToString("dd")) days left</span>
+						}
+						else if(time/3600000 > 1)
+						{
+							<span>@((time/3600000).ToString()) hours left</span>
+						}
+						else if(time/60000 > 1)
+						{
+							<span>@((time/60000).ToString()) minute(s) left</span>
+						}
+
+					}
+				</td>
+				<td>
+					@{
+						if(i.SellerId == ViewBag.User.id)
+						{
+							<a href="/delete/@i.id">Delete</a>
+						}
+					}
+				</td>
+
+			</tr>
+		}
+	}
+
+
+</table>
+
+<p>Your Current Wallet: $@ViewBag.User.Balance</p>
+
+<form action="/newauction" method=get>
+	<input type=submit value="New Auction">
+</form>
+
+<form action="/fastforward" method=post>
+	<input type=submit value="Simulate Time (fast forward one hour)">
+</form>

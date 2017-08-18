@@ -1,0 +1,8 @@
+/home/nate/Documents/cddj/ch8/EF/auction/bin/Debug/netcoreapp1.1/auction.deps.json
+/home/nate/Documents/cddj/ch8/EF/auction/bin/Debug/netcoreapp1.1/auction.runtimeconfig.json
+/home/nate/Documents/cddj/ch8/EF/auction/bin/Debug/netcoreapp1.1/auction.runtimeconfig.dev.json
+/home/nate/Documents/cddj/ch8/EF/auction/bin/Debug/netcoreapp1.1/auction.dll
+/home/nate/Documents/cddj/ch8/EF/auction/bin/Debug/netcoreapp1.1/auction.pdb
+/home/nate/Documents/cddj/ch8/EF/auction/obj/Debug/netcoreapp1.1/auction.AssemblyInfo.cs
+/home/nate/Documents/cddj/ch8/EF/auction/obj/Debug/netcoreapp1.1/auction.dll
+/home/nate/Documents/cddj/ch8/EF/auction/obj/Debug/netcoreapp1.1/auction.pdb
